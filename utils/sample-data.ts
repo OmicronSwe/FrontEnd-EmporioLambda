@@ -10,6 +10,4 @@ export const sampleUserData: User[] = [
 ]
 
 /** Dummy user data. */
-export const sampleLambdaData: Lambda[] = [
-  { funName: "hello", message: "qual è il messaggio?" }
-]
+export const sampleLambdaData: Lambda[] = [{ funName: "hello", message: "qual è il messaggio?" }]
