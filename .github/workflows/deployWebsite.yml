@@ -16,7 +16,7 @@ jobs:
         run: npm install
 
       - name: Test ESLint 🛂👮
-        run: npm run checkWithlint
+        run: npm run checkWithLint
 
       - name: Deploy staging 🚀🌟
         if: github.ref != 'refs/heads/master'
