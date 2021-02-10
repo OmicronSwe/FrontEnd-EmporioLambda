@@ -18,7 +18,7 @@ jobs:
       - name: Test ESLint 🛂👮
         run: npm run checkWithLint
 
-      - name: Deploy staging 🚀🌟
+      - name: Deploy test 🚀🌟
         if: github.ref != 'refs/heads/master'
         uses: amondnet/vercel-action@v20
         with:
@@ -28,7 +28,7 @@ jobs:
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID}} #Required 
           working-directory: ./
 
-      - name: Deploy production 🚀✨
+      - name: Deploy staging 🚀✨
         if: github.ref == 'refs/heads/master'
         uses: amondnet/vercel-action@v20
         with:
