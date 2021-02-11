@@ -9,6 +9,16 @@
     "lint": "eslint . --ext js,jsx,ts,tsx --fix",
     "checkWithLint": "eslint . --ext js,jsx,ts,tsx"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OmicronSwe/FrontEnd-EmporioLambda.git"
+  },
+  "author": "Omicron Team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OmicronSwe/FrontEnd-EmporioLambda/issues"
+  },
+  "homepage": "https://github.com/OmicronSwe/FrontEnd-EmporioLambda#readme",
   "dependencies": {
     "next": "^10.0.0",
     "react": "17.0.1",
