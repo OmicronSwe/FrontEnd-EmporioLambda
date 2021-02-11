@@ -13,14 +13,15 @@ spostarsi dentro la cartella e lanciare `npm install` che installerà le dipende
 
 ### Installazione vercel
 
-Lanciare il comando `npm i -g vercel` il quale vi chiederà le credenziali di vercel che si trovano su discord nel canale *#resources*. Probabilmente vi chiedrà alcune configurazioni, in questo caso guardate la sezione [Project Linking](https://vercel.com/docs/cli).  
+1. Lanciare il comando `npm i -g vercel`
+2. Lanciare il comando `vercel env pull`, il quale vi chiederà le credenziali di vercel che si trovano su discord nel canale *#resources*. Probabilmente vi chiedrà alcune configurazioni, in questo caso guardate la sezione [Project Linking](https://vercel.com/docs/cli).  
 
-1. `Which scope do you want to deploy to -> omicronswe`
-2. `What’s the name of your existing project? -> front-end-emporio-lambda`
+- `Which scope do you want to deploy to -> omicronswe`
+- `What’s the name of your existing project? -> front-end-emporio-lambda`
 
-Questi due punti potrebbero essere anche automatici.  
+3. Ridare il comando `vercel env pull`. Questo comando scaricherà le variabili d'ambiente.
 
-Una volta configurato vercel, lanciare il comando `vercel env pull` che scaricherà le varibili d'ambiente. Dopo ciò vercel non dovrebbe più servire perchè il deploy avviene tramite github, e vercel serve solo per scaricare queste variabili.
+Dopo ciò vercel non dovrebbe più servire perchè il deploy avviene tramite github, e vercel serve solo per scaricare queste variabili.
 
 ## Sviluppo
 E' presente un esempio di sviluppo, il quale è suddiviso in cartelle quali:
