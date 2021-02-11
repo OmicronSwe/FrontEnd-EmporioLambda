@@ -55,6 +55,6 @@ Useremo 3 enviroment per lo sviluppo:
 - `preview` : Tutto ciò che viene pushato nel branch `develop`, prodotto che può essere testato liberamente dagli sviluppatori. Richiamerà le API dello stage `test` di AWS
 - `local` : Tutto ciò che viene utilizzato localmente, quindi tramite il comando `npm run dev`. Richiamerà le API dello stage `local` di AWS
 
-L'indirizzo del sito del deploy si trova nella descrizione della repository (per il sito in **production**), oppure nelle *GitHub Actions* nell'outuput del comando `Deploy production 🚀✨` oppure `Deploy preview 🚀🌟`
+L'indirizzo del sito del deploy si trova nella descrizione della repository (per il sito in **production**), oppure come commento dopo il deploy da parte delle *GitHub Actions* (click sul simbolo del messaggio (💬) a sinistra della spunta verde -> andare in fondo alla pagina) 
 
 #### ⚠️ Non si deve mai deployare in locale da vercel (tramite i comandi di vercel), perchè il deploy comunque avverrebbe in **preview** o **production**. Purtroppo esistono solo questi due stage (preview e production) per il deploy online del sito.
