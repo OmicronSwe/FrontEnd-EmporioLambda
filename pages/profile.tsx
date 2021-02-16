@@ -1,4 +1,4 @@
-import { useSession, jwt } from 'next-auth/client'
+import { useSession } from 'next-auth/client'
 import Layout from "../components/layout"
 
 const ProfilePage = () => {
@@ -10,7 +10,6 @@ const ProfilePage = () => {
       <p>Utente non autenticato</p>
     </Layout >
   );
-  session.jwt = true;
   return (
     <Layout>
       {session && (

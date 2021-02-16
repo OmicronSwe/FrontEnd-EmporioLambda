@@ -62,9 +62,9 @@ L'indirizzo del sito del deploy si trova nella descrizione della repository (per
 #### ⚠️ Non si deve mai deployare in locale da vercel (tramite i comandi di vercel), perchè il deploy comunque avverrebbe in **preview** o **production**. Purtroppo esistono solo questi due stage (preview e production) per il deploy online del sito.
 
 ## ENV Cognito
-NEXT_PUBLIC_SITE=http://localhost:3000 
-COGNITO_CLIENT_ID= id app cognito
-COGNITO_CLIENT_SECRET=
-COGNITO_DOMAIN= dominio app cognito (senza 'https://')
-COGNITO_LOGOUT_URL= url di logout app cognito
-NEXTAUTH_URL=http://localhost:3000
+- NEXT_PUBLIC_SITE=http://localhost:3000 
+- COGNITO_CLIENT_ID= id app cognito
+- COGNITO_CLIENT_SECRET=
+- COGNITO_DOMAIN= dominio app cognito (senza 'https://')
+- COGNITO_LOGOUT_URL= url di logout app cognito
+- NEXTAUTH_URL=http://localhost:3000 (Da modificare solo in production (in teoria?))
