@@ -1,17 +1,21 @@
-import Head from 'next/head'
 import Layout from '../../components/layout'
 import { GetServerSideProps } from "next"
 import { Product } from "../../interfaces"
 import { sampleProductData } from "../../utils/sample-data"
 import Link from 'next/link'
 
+
 type Props = {
   items: Product[]
 }
 
-const WithServerSideProps = ({ items }: Props) => (
+function productLink(id: any){
+  return `${id}.tsx`
+}
+
+const WithServerSideProps = ({items}: Props) => (
 <Layout title="Products List">
-    <table>
+    <table id="productsTable">
       <caption> Products list </caption>
       <thead>
         <tr>
@@ -21,12 +25,12 @@ const WithServerSideProps = ({ items }: Props) => (
         </tr>
       </thead>
       <tbody>
-        {items.map((item, idx) => (
+        {items.map((items) => (
           <tr>
-            <th><Link href='{item.id}.tsx'>item.nome</Link></th>
-            <th>item.prezzo</th>
-            <th>item.disponibilita</th>
-          </tr>
+          <td><Link href={productLink(items.id)}>{items.nome}</Link></td>
+          <td>{items.prezzo}</td>
+          <td>{items.disponibilita}</td>
+        </tr>
         ))}
       </tbody>
     </table>
