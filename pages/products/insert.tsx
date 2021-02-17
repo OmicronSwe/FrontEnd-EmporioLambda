@@ -3,8 +3,8 @@ import Layout from "../../components/layout"
 
 export default function InsertProduct() {
 
-    const sendProduct = async event => {
-        event.preventDefault();
+    const sendProduct = async (event) => {
+        event.preventDefault()
         const res = await fetch(
             'https://wom28o1ly9.execute-api.eu-central-1.amazonaws.com/local/product',
             {
