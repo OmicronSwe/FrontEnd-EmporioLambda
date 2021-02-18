@@ -1,26 +1,21 @@
 import Link from "next/link"
 import Layout from "../../components/layout"
 
+import { getlambdaResponsePOST } from "../../lib/lambdas";
+
 export default function InsertProduct() {
 
     const sendProduct = async (event) => {
         event.preventDefault()
-        const res = await fetch(
-            'https://wom28o1ly9.execute-api.eu-central-1.amazonaws.com/local/product',
-            {
-              body: JSON.stringify({
-                name: document.getElementById("name").nodeValue,
-                description: document.getElementById("description").nodeValue
-              }),
-              headers: {
-                'Content-Type': 'application/json'
-              },
-              method: 'POST'
-            }
-          )
+        const stringJson = JSON.stringify({
+          name: event.target.name.value,
+          description: event.target.description.value
+        });
 
-          //const result = await res.json();
-          //console.log(result);
+        const res = await getlambdaResponsePOST("product",stringJson);
+
+        //const result = await res.json();
+        //console.log(result);
     }
 
     return (

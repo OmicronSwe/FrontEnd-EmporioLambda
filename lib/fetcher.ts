@@ -20,4 +20,18 @@ export class Fetcher {
 
     return data
   }
+
+  async getJSONResponsePOST(params): Promise<any> {
+    const req = await fetch(this.url.href, {
+      body: params,
+      mode: 'no-cors',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST'
+    })
+    const data = await req.json()
+ 
+    return data
+  }
 }
