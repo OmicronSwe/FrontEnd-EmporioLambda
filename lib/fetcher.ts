@@ -20,4 +20,14 @@ export class Fetcher {
 
     return data
   }
+
+  async getJSONResponsePOST(params): Promise<any> {
+    const req = await fetch(this.url.href,{
+      method: "POST",
+      body: JSON.stringify(params),
+    })
+    const data = await req.json()
+
+    return data
+  }
 }
