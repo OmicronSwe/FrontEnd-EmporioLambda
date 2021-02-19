@@ -13,7 +13,7 @@ const options = {
         },
         async session(session, token){ 
             if(token?.accessToken){
-                session.accessToken = token.accessToken;
+            //    session.accessToken = token.accessToken;
             }
             return session;
         },
