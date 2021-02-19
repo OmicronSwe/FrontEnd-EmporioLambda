@@ -14,10 +14,10 @@ export type Lambda = {
   message: string
 }
 
-export type Product {
-  id : number
-  nome : string
-  prezzo : number
-  disponibilita : number
-  descrizione? : string
+export type Product = {
+  id: number
+  nome: string
+  prezzo: number
+  disponibilita: number
+  descrizione?: string
 }

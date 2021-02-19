@@ -11,8 +11,8 @@ export const sampleUserData: User[] = [
 
 /** Dummy product data. */
 export const sampleProductData: Product[] = [
-{ id : 1, nome : "Pacchetto 10 Viti", prezzo : 5, disponibilita : 10, descrizione : "Belle ste viti" }, 
-{ id : 2, nome : "Mela", prezzo : 0.50, disponibilita : 50, descrizione : "Buone ste mele" }
+  { id: 1, nome: "Pacchetto 10 Viti", prezzo: 5, disponibilita: 10, descrizione: "Belle ste viti" },
+  { id: 2, nome: "Mela", prezzo: 0.5, disponibilita: 50, descrizione: "Buone ste mele" },
 ]
 
 /** Dummy user data. */
