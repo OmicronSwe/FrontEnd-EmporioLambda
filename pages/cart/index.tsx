@@ -1,17 +1,42 @@
 import Layout from '../../components/layout'
 import { GetServerSideProps } from "next"
 import { getlambdaResponse } from "../../lib/lambdas"
-import Link from 'next/link'
-
-import Cookies from 'cookies'
-import { getCookieParser } from 'next/dist/next-server/server/api-utils'
  
-function productLink(id: any){
-  return `${id}.tsx`
-}
 
  
-export default function product({ response }) {
+export default async function product() {
+
+
+  const ISSERVER = typeof window === "undefined";
+
+  if(!ISSERVER) {
+
+    var respJson = {
+      response: []
+    }
+
+    const cart = localStorage.getItem("cart");
+    var jsonCart;
+
+    if(cart!=null){
+      jsonCart = JSON.parse(cart).ids;
+      for (const item of jsonCart) {
+        const res = await fetch("../api/cart", {
+          body: JSON.stringify({id:item}),
+          mode: "no-cors",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          method: "POST",
+        })
+        const result = await res.json()
+
+        respJson.response.push(result.props.response);
+      }
+    }
+
+  }
+
   return (
 
     <Layout title="Shopping Cart">
@@ -24,7 +49,7 @@ export default function product({ response }) {
         </tr>
       </thead>
       <tbody>
-        {response.map((items) => (
+        {respJson.response.map((items) => (
           <tr key={items.id}>
           <td>{items.name}</td>
           <td>{items.description}</td>
@@ -36,23 +61,3 @@ export default function product({ response }) {
   )
 }
  
- 
-
-export const getServerSideProps: GetServerSideProps = async ({req,res}) => {
-    const cookies = new Cookies(req, res);
-
-    var respJson = {
-      props: {
-        response: []
-      }
-    }
-
-    const IDS = JSON.parse(cookies.get("cart")).ids;
-
-    for (const item of IDS) {
-      const response = await getlambdaResponse("product/getFromId/"+item);  
-      respJson.props.response.push(response.props.response);
-    }
-  
-    return respJson
-}
