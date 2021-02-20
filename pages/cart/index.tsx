@@ -1,28 +1,31 @@
-import Layout from '../../components/layout'
-import { GetServerSideProps } from "next"
-import { getlambdaResponse } from "../../lib/lambdas"
- 
+import React, { Component } from "react"
+import Layout from "../../components/layout"
 
- 
-export default async function product() {
+class Cart extends Component<unknown, { items: string }> {
+  constructor(props) {
+    super(props)
+    this.state = { items: "" }
+    this.getData = this.getData.bind(this)
+  }
 
+  componentDidMount() {
+    this.getData()
+  }
 
-  const ISSERVER = typeof window === "undefined";
-
-  if(!ISSERVER) {
-
-    var respJson = {
-      response: []
+  async getData() {
+    const respJson = {
+      response: [],
     }
 
-    const cart = localStorage.getItem("cart");
-    var jsonCart;
+    const cart = localStorage.getItem("cart")
+    let jsonCart
 
-    if(cart!=null){
-      jsonCart = JSON.parse(cart).ids;
+    if (cart != null) {
+      jsonCart = JSON.parse(cart).ids
       for (const item of jsonCart) {
+        console.log(item)
         const res = await fetch("../api/cart", {
-          body: JSON.stringify({id:item}),
+          body: JSON.stringify({ id: item }),
           mode: "no-cors",
           headers: {
             "Content-Type": "application/json",
@@ -31,33 +34,47 @@ export default async function product() {
         })
         const result = await res.json()
 
-        respJson.response.push(result.props.response);
+        respJson.response.push(result)
       }
     }
 
+    this.setState({ items: JSON.stringify(respJson) })
   }
 
-  return (
+  render() {
+    let products = []
+    if (this.state.items != "") {
+      products = JSON.parse(this.state.items).response
+    }
 
-    <Layout title="Shopping Cart">
-    <table id="productsTable">
-      <caption> Shopping Cart </caption>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Description</th>
-        </tr>
-      </thead>
-      <tbody>
-        {respJson.response.map((items) => (
-          <tr key={items.id}>
-          <td>{items.name}</td>
-          <td>{items.description}</td>
-        </tr>
-        ))}
-      </tbody>
-    </table>
-    </Layout>
-  )
+    return (
+      <Layout title="Shopping Cart">
+        <table id="productsTable">
+          <caption> Shopping Cart </caption>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((items) => (
+              <tr key={items.id}>
+                <td>{items.name}</td>
+                <td>{items.description}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button onClick={() => this.RemoveAll()}>RemoveAll</button>
+      </Layout>
+    )
+  }
+
+  RemoveAll() {
+    localStorage.clear()
+    this.setState({ items: "" })
+  }
 }
- 
+
+export default Cart
