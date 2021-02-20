@@ -8,6 +8,11 @@ const IndexPage = () => (
       <Link href="/about">
         <a>About</a>
       </Link>
+      <br />
+      <br />
+      <Link href="/products">
+        <a>Products</a>
+      </Link>
     </p>
   </Layout>
 )
