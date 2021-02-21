@@ -52,6 +52,7 @@ header nav {
 .content {
   margin: auto;
   padding: 2em;
+  word-wrap: break-word;
 }
 
 #footer {
