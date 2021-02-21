@@ -34,24 +34,19 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
           <Link href="/">
             <a>Home</a>
           </Link>
-          <Link href="/about">
-            <a>About</a>
+          <Link href="/products">
+            <a>Products</a>
           </Link>
-          <Link href="/users">
-            <a>Users List</a>
+          <Link href="/products/insert">
+            <a>Insert a new product</a>
           </Link>
           <Link href="/profile">
             <a>Profile</a>
           </Link>
-          <Link href="/lambdas">
-            <a>Lambdas List</a>
+          <Link href="/cart">
+            <a>Shopping cart</a>
           </Link>
-          <Link href="/api/users">
-            <a>Users API</a>
-          </Link>
-          <Link href="/api/lambdas">
-            <a>Lambdas API</a>
-          </Link>
+
           {!session && (
             <span>
               <button
