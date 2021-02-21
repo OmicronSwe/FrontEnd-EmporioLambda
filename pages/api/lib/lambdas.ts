@@ -9,3 +9,13 @@ export async function getlambdaResponse(funName: string) {
     },
   }
 }
+
+export async function getlambdaResponsePOST(funName: string, params: string) {
+  const fetcher = new Fetcher(funName)
+
+  return {
+    props: {
+      response: await fetcher.getJSONResponsePOST(params),
+    },
+  }
+}

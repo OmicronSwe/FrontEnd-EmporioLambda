@@ -1,7 +1,7 @@
 import Layout from "../../components/layout"
 import Head from "next/head"
 
-import { getlambdaResponse } from "../../lib/lambdas"
+import { getlambdaResponse } from "../api/lib/lambdas"
 import { GetServerSideProps } from "next"
 import { useRouter } from "next/router"
 
