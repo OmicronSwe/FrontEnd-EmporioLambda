@@ -5,7 +5,7 @@ const options = {
   site: process.env.NEXT_PUBLIC_SITE || "http://localhost:3000",
   session: { jwt: true },
   callbacks: {
-    async jwt(token, user, account, profile, isNewUser) {
+    async jwt(token, user, account) {
       if (account?.accessToken) {
         token.accessToken = account.accessToken
       }
