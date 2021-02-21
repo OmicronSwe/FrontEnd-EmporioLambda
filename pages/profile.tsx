@@ -10,7 +10,7 @@ const ProfilePage = ({ session }) => {
       </Layout>
     )
   return (
-    <Layout>
+    <Layout title="Profile | Next.js + TypeScript Example">
       {session && (
         <>
           <h1>Hello {session.user.email}!</h1>
