@@ -1,10 +1,8 @@
-import { useSession } from "next-auth/client"
+import { getSession } from "next-auth/client"
 import Layout from "../components/layout"
+import { GetServerSideProps } from "next"
 
-const ProfilePage = () => {
-  const [session, loading] = useSession()
-
-  if (loading) return null
+const ProfilePage = ({session}) => {
   if (!session)
     return (
       <Layout title="Profile | Next.js + TypeScript Example">
@@ -22,6 +20,13 @@ const ProfilePage = () => {
       )}
     </Layout>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getSession({req});
+  return {props:{
+    session
+  }}
 }
 
 export default ProfilePage
