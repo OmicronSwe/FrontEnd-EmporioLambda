@@ -1,5 +1,6 @@
 import React, { Component } from "react"
 import Layout from "../../components/layout"
+import PayButton from '../../components/PayButton';
 
 class Cart extends Component<unknown, { items: string }> {
   constructor(props) {
@@ -67,6 +68,8 @@ class Cart extends Component<unknown, { items: string }> {
           </tbody>
         </table>
         <button onClick={() => this.RemoveAll()}>RemoveAll</button>
+        <p>Use test@email.com, 4242 4242 4242 4242, and any CVC and future expiration date.</p>
+        <PayButton amount={products.length} />
       </Layout>
     )
   }
