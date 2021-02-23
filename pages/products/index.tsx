@@ -1,18 +1,28 @@
 import Layout from "../../components/layout"
 import { GetServerSideProps } from "next"
 import { getlambdaResponse } from "../api/lib/lambdas"
+import { getSession } from "next-auth/client"
 import React from "react"
 
-/*type Props = {
-  items: Product[]
-}
+async function addToCart(id: string, session) {
+  if (session) {
+    const stringJson = JSON.stringify({
+      email: session.user.email,
+      product_id: id,
+    })
 
-function productLink(id: any){
-  return `${id}.tsx`
-}*/
+    const res = await fetch("../api/insertCart", {
+      body: stringJson,
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+    })
 
-const product = ({ response }) => {
-  function addToCart(id: string) {
+    const result = await res.json()
+    console.log(result)
+  } else {
     const cart = localStorage.getItem("cart")
     let jsonCart
 
@@ -24,10 +34,12 @@ const product = ({ response }) => {
       }
     }
 
-    jsonCart.ids.push(id)
+    jsonCart.ids.push({ product_id: id })
     localStorage.setItem("cart", JSON.stringify(jsonCart))
   }
+}
 
+export default function product({ response, session }) {
   return (
     <Layout title="Products List">
       <table id="productsTable">
@@ -44,7 +56,7 @@ const product = ({ response }) => {
               <td>{items.name}</td>
               <td>{items.description}</td>
               <td>
-                <button onClick={() => addToCart(items.id)}>Add to Cart</button>
+                <button onClick={() => addToCart(items.id, session)}>Add to Cart</button>
               </td>
             </tr>
           ))}
@@ -54,8 +66,11 @@ const product = ({ response }) => {
   )
 }
 
-export default product
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  return await getlambdaResponse("product")
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  return {
+    props: {
+      response: await (await getlambdaResponse("product")).props.response,
+      session: await getSession({ req }),
+    },
+  }
 }

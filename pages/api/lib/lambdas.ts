@@ -19,3 +19,13 @@ export async function getlambdaResponsePOST(funName: string, params: string) {
     },
   }
 }
+
+export async function getlambdaResponseDELETE(funName: string) {
+  const fetcher = new Fetcher(funName)
+
+  return {
+    props: {
+      response: await fetcher.getJSONResponseDELETE(),
+    },
+  }
+}

@@ -1,8 +1,11 @@
 import React, { Component } from "react"
 import Layout from "../../components/layout"
 import PayButton from "../../components/PayButton"
+import { GetServerSideProps } from "next"
+import { getlambdaResponse } from "../api/lib/lambdas"
+import { getSession } from "next-auth/client"
 
-class Cart extends Component<unknown, { items: string }> {
+class Cart extends Component<{ response; auth }, { items: string }> {
   constructor(props) {
     super(props)
     this.state = { items: "" }
@@ -18,15 +21,18 @@ class Cart extends Component<unknown, { items: string }> {
       response: [],
     }
 
-    const cart = localStorage.getItem("cart")
     let jsonCart
 
-    if (cart != null) {
-      jsonCart = JSON.parse(cart).ids
+    if (this.props.auth) {
+      jsonCart = this.props.response.products_id
+    } else {
+      jsonCart = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")).ids : []
+    }
+
+    if (jsonCart.length > 0) {
       for (const item of jsonCart) {
-        console.log(item)
         const res = await fetch("../api/cart", {
-          body: JSON.stringify({ id: item }),
+          body: JSON.stringify({ id: item.product_id }),
           mode: "no-cors",
           headers: {
             "Content-Type": "application/json",
@@ -75,9 +81,35 @@ class Cart extends Component<unknown, { items: string }> {
     )
   }
 
-  RemoveAll() {
-    localStorage.clear()
-    this.setState({ items: "" })
+  async RemoveAll() {
+    if (this.props.auth) {
+      const res = await fetch("../api/deleteCart", {
+        body: this.props.auth,
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      })
+      await res.json()
+      this.setState({ items: "" })
+    } else {
+      localStorage.clear()
+      this.setState({ items: "" })
+    }
+  }
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req })
+  if (session) {
+    const resp = await (await getlambdaResponse("cart/" + session.user.email)).props.response
+    if (resp.message == "Element not found") {
+      return { props: { response: [], email: session.user.email } }
+    }
+    return { props: { response: resp, auth: session.user.email } }
+  } else {
+    return { props: { response: [], auth: null } }
   }
 }
 

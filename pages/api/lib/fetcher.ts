@@ -34,4 +34,18 @@ export class Fetcher {
 
     return data
   }
+
+  async getJSONResponseDELETE(): Promise<any> {
+    const req = await fetch(this.url.href, {
+      body: null,
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
+    })
+    const data = await req.json()
+
+    return data
+  }
 }
