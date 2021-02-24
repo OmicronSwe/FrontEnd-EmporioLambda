@@ -4,6 +4,7 @@ import StripeCheckout from "react-stripe-checkout"
 import config from "../config"
 
 class PayButton extends React.Component<{ amount }> {
+  //component to create the checkout system (button + form + sending the payment)
   constructor(props) {
     super(props)
     this.onToken = this.onToken.bind(this)
@@ -11,6 +12,7 @@ class PayButton extends React.Component<{ amount }> {
 
   async onToken(token) {
     const res = await fetch("../api/stripe", {
+      //internal API to call external API to execute the checkout
       method: "POST",
       body: JSON.stringify({
         token,
@@ -21,24 +23,13 @@ class PayButton extends React.Component<{ amount }> {
       }),
     })
     const data = await res.json()
-    console.log(
-      JSON.stringify({
-        token,
-        charge: {
-          amount: this.props.amount,
-          currency: config.stripe.currency,
-        },
-      })
-    )
-    console.log("onToken") // Logs for ease of debugging
-    console.log(data)
 
-    document.getElementById("message").innerHTML = data.message
+    document.getElementById("message").innerHTML = data.message //return the message to the client
   }
 
   render() {
     return (
-      <StripeCheckout
+      <StripeCheckout // pre-made checkout system (button + form)
         name="Serverless Stripe Store Inc."
         token={this.onToken}
         amount={this.props.amount}

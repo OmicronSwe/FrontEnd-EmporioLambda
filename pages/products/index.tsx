@@ -6,12 +6,16 @@ import React from "react"
 
 async function addToCart(id: string, session) {
   if (session) {
+    //authenticated -> add product to remote cart (dynamoDB) through API
+
     const stringJson = JSON.stringify({
+      //payload for API
       email: session.user.email,
       product_id: id,
     })
 
     const res = await fetch("../api/insertCart", {
+      //internal API request to call the external API
       body: stringJson,
       mode: "no-cors",
       headers: {
@@ -20,10 +24,10 @@ async function addToCart(id: string, session) {
       method: "POST",
     })
 
-    const result = await res.json()
-    console.log(result)
+    await res.json()
   } else {
-    const cart = localStorage.getItem("cart")
+    //not authenticated -> add product to localstorage
+    const cart = localStorage.getItem("cart") //retrieve cart
     let jsonCart
 
     if (cart != null) {
@@ -34,8 +38,8 @@ async function addToCart(id: string, session) {
       }
     }
 
-    jsonCart.ids.push({ product_id: id })
-    localStorage.setItem("cart", JSON.stringify(jsonCart))
+    jsonCart.ids.push({ product_id: id }) //push new id to the cart
+    localStorage.setItem("cart", JSON.stringify(jsonCart)) //update localstorage
   }
 }
 
@@ -69,8 +73,8 @@ export default function product({ response, session }) {
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   return {
     props: {
-      response: await (await getlambdaResponse("product")).props.response,
-      session: await getSession({ req }),
+      response: await (await getlambdaResponse("product")).props.response, //return API response
+      session: await getSession({ req }), //return session data
     },
   }
 }

@@ -6,7 +6,7 @@ const ProfilePage = ({ session }) => {
   if (!session)
     return (
       <Layout title="Profile | Next.js + TypeScript Example">
-        <p>Utente non autenticato</p>
+        <p>User not authenticated</p>
       </Layout>
     )
   return (
@@ -23,8 +23,9 @@ const ProfilePage = ({ session }) => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const session = await getSession({ req })
+  const session = await getSession({ req }) //get session data
   return {
+    //return session data to the page
     props: {
       session,
     },

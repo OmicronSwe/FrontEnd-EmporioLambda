@@ -2,7 +2,7 @@ export class Fetcher {
   url: URL
 
   constructor(funName: string) {
-    this.url = new URL(
+    this.url = new URL( //creates the URL based on enviroment variables and the function name
       "https://" +
         process.env.API_ID +
         ".execute-api." +
