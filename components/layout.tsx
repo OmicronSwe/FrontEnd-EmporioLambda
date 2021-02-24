@@ -47,7 +47,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
             <a>Shopping cart</a>
           </Link>
 
-          {!session && (
+          {!session && ( //not authenticated
             <span>
               <button
                 className="signInButton"
@@ -60,7 +60,7 @@ const Layout = ({ children, title = "This is the default title" }: Props) => {
               </button>
             </span>
           )}
-          {session && (
+          {session && ( //authenticated
             <span>
               <button
                 className="signOutButton"

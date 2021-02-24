@@ -4,12 +4,15 @@ import Layout from "../../components/layout"
 export default function InsertProduct() {
   const sendProduct = async (event) => {
     event.preventDefault()
+
     const stringJson = JSON.stringify({
+      //payload for API
       name: event.target.name.value,
       description: event.target.description.value,
     })
 
     const res = await fetch("../api/products", {
+      //internal API request to request the external API
       body: stringJson,
       mode: "no-cors",
       headers: {
@@ -18,10 +21,10 @@ export default function InsertProduct() {
       method: "POST",
     })
 
-    const result = await res.json()
+    const result = await res.json() //retrieve json response
     console.log(result)
 
-    document.getElementById("messagge").innerHTML = result.message
+    document.getElementById("messagge").innerHTML = result.message //return the message to the client
   }
 
   return (

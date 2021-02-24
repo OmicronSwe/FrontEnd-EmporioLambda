@@ -2,7 +2,7 @@ export class Fetcher {
   url: URL
 
   constructor(funName: string) {
-    this.url = new URL(
+    this.url = new URL( //creates the URL based on enviroment variables and the function name
       "https://" +
         process.env.API_ID +
         ".execute-api." +
@@ -29,6 +29,20 @@ export class Fetcher {
         "Content-Type": "application/json",
       },
       method: "POST",
+    })
+    const data = await req.json()
+
+    return data
+  }
+
+  async getJSONResponseDELETE(): Promise<any> {
+    const req = await fetch(this.url.href, {
+      body: null,
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "DELETE",
     })
     const data = await req.json()
 
