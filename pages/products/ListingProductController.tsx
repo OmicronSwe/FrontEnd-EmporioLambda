@@ -1,7 +1,7 @@
 import React from "react"
 import ListingProductView from "./ListingProductView"
 
-class PokemonController extends React.Component<{ viewModel; session; products }> {
+class ListingProductController extends React.Component<{ viewModel; session; products }> {
   state = {
     //in questo caso, non mi servono stati
   }
@@ -15,4 +15,4 @@ class PokemonController extends React.Component<{ viewModel; session; products }
   }
 }
 
-export default PokemonController
+export default ListingProductController
