@@ -4,11 +4,11 @@ export class Fetcher {
   constructor(funName: string) {
     this.url = new URL( //creates the URL based on enviroment variables and the function name
       "https://" +
-        process.env.API_ID +
+        process.env.NEXT_PUBLIC_API_ID +
         ".execute-api." +
-        process.env.REGION_API +
+        process.env.NEXT_PUBLIC_REGION_API +
         ".amazonaws.com/" +
-        process.env.STAGE +
+        process.env.NEXT_PUBLIC_STAGE +
         "/" +
         funName
     )
@@ -22,9 +22,10 @@ export class Fetcher {
   }
 
   async getJSONResponsePOST(params): Promise<any> {
+    console.log(this.url.href)
+    console.log(params)
     const req = await fetch(this.url.href, {
       body: params,
-      mode: "no-cors",
       headers: {
         "Content-Type": "application/json",
       },
